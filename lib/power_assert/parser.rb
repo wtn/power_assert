@@ -178,6 +178,7 @@ module PowerAssert
         ed = right_min ? right_min.column - 1 : @line_for_parsing.length - 1
         mname = mid.to_s
         srctxt = MID2SRCTXT[mid] || mname
+        mname = '!' if mid == :not
         re = /
           #{'\b' if /\A\w/ =~ srctxt}
           #{Regexp.escape(srctxt)}

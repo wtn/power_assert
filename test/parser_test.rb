@@ -90,6 +90,13 @@ class TestParser < Test::Unit::TestCase
       ['-a',
         [[:method, "a", 1], [:method, "-@", 0]]],
 
+      ['not a',
+        [[:method, "a", 4], [:method, "!", 0]]],
+
+      ['b and not a',
+        [[:method, "b", 0], [[[:method, "a", 10], [:method, "!", 6]], []]],
+        [["b", "a", "!"], ["b"]]],
+
       ['! a == (+b == -c)',
         [[:method, "a", 2], [:method, "!", 0], [:method, "b", 9], [:method, "+@", 8], [:method, "c", 15], [:method, "-@", 14],
           [:method, "==", 11], [:method, "==", 4]]],

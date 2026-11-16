@@ -213,6 +213,36 @@ END
     end
 
     t do
+      a = 'a'
+      assert_equal <<END.chomp, assertion_message {
+        not a.empty?
+        |   | |
+        |   | false
+        |   "a"
+        true
+END
+        not a.empty?
+      }
+    end
+
+    t do
+      a = ''
+      b = ''
+      assert_equal <<END.chomp, assertion_message {
+        not a.empty? or not b.empty?
+        |   | |         |   | |
+        |   | |         |   | true
+        |   | |         |   ""
+        |   | |         false
+        |   | true
+        |   ""
+        false
+END
+        not a.empty? or not b.empty?
+      }
+    end
+
+    t do
       omit 'String#-@ is not defined' unless 'a'.respond_to?(:-@)
       assert_equal <<END.chomp, assertion_message {
         -'a'
