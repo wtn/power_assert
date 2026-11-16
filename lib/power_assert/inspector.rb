@@ -51,7 +51,7 @@ module PowerAssert
           width = [console_width - 1 - @indent, 10].max
           IRB::ColorPrinter.pp(@value, +'', width)
         else
-          IRB::Color.colorize_code(@value.to_s, ignore_error: true)
+          IRB::Color.colorize_code(@value.inspect, ignore_error: true)
         end
       else
         if PowerAssert.configuration.inspector == :pp

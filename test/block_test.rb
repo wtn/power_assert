@@ -579,6 +579,35 @@ END
     end
   end
 
+  data(
+       'lazy_inspection'    => true,
+       'no lazy_inspection' => false
+  )
+  def test_colorized_p(lazy_inspection)
+    begin
+      PowerAssert.configure do |c|
+        c.lazy_inspection = lazy_inspection
+        c.colorize_message = true
+      end
+      a = 'a'
+      assert_equal <<END.chomp, strip_color(assertion_message {
+        a.sub(/a/, 'b').sub!(/x/, '').nil?
+        | |             |             |
+        | |             |             true
+        | |             nil
+        | "b"
+        "a"
+END
+        a.sub(/a/, 'b').sub!(/x/, '').nil?
+      })
+    ensure
+      PowerAssert.configure do |c|
+        c.colorize_message = false
+        c.lazy_inspection = false
+      end
+    end
+  end
+
   def test_assertion_message_with_string
     a, = 0, a # suppress "assigned but unused variable" warning
     @b = 1
